@@ -10,7 +10,7 @@ function buildWorker({ entry, out, debug, external } = {}) {
 		entryPoints: [entry],
 		sourcemap: true,
 		outfile: out,
-		external,
+		external, // 这个 external 参数会接收我们传入的外部依赖列表
 		logLevel: 'warning',
 		format: 'esm',
 		target: 'es2022',
@@ -33,6 +33,8 @@ let result = await buildWorker({
 	entry: './src/worker.js',
 	out: './dist/worker.js',
 	debug: false,
+    // 在这里添加 cloudflare:sockets 到 external 数组中
+	external: ['cloudflare:sockets'],
 });
 
 if (result.metafile) {
